@@ -3,6 +3,10 @@
     --accent-gold: #FFD700; /* Daisy Yellow/Gold */
     --background-cream: #FFF8E1; /* Soft Cream */
     --text-dark: #333333;
+    /* New Firework Colors */
+    --firework-color-1: #FF6B6B; /* Coral Red */
+    --firework-color-2: #84DCCF; /* Mint Green */
+    --firework-color-3: #FFC3A0; /* Light Orange */
 }
 
 body {
@@ -53,6 +57,7 @@ body {
     font-size: 3em;
     color: var(--primary-pink);
     margin-bottom: 5px;
+    transition: color 1s ease;
 }
 
 .subtitle {
@@ -78,19 +83,51 @@ body {
     border-radius: 10px;
     min-width: 70px;
     box-shadow: 0 5px 15px rgba(255, 182, 193, 0.5);
+    transition: background-color 1s ease;
 }
 
+/* Ensures the label is visible when the value is a single digit */
 .count-box span {
     display: block;
     font-size: 2em;
     font-weight: 600;
 }
 
+/* Hiding the default 'p' element in the HTML for a cleaner look */
 .count-box p {
-    margin: 0;
-    font-size: 0.8em;
-    opacity: 0.9;
+    display: none;
 }
+
+/* The actual labels we want to use (using ::after for custom text) */
+#years::after {
+    content: "Milestone";
+    display: block;
+    font-size: 0.7em;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+#days::after {
+    content: "Left";
+    display: block;
+    font-size: 0.7em;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+#hours::after {
+    content: "Hours Left";
+    display: block;
+    font-size: 0.7em;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+#minutes::after {
+    content: "Minutes Left";
+    display: block;
+    font-size: 0.7em;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
 
 /* Gift Button Style */
 .gift-button {
@@ -177,4 +214,44 @@ body {
     font-family: 'Dancing Script', cursive;
     font-size: 1.5em;
     color: var(--primary-pink);
+}
+
+/* --- FIREWORKS CSS --- */
+#fireworks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5; /* Below modal, above content */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 1s ease;
+}
+
+.firework {
+    position: absolute;
+    width: 0.5px;
+    height: 0.5px;
+    border-radius: 50%;
+    animation: firework-burst 0.5s ease-out forwards;
+}
+
+/* Keyframes for the burst effect */
+@keyframes firework-burst {
+    0% {
+        box-shadow: 
+            0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+        opacity: 1;
+        transform: scale(0.5);
+    }
+    100% {
+        box-shadow: 
+            15px 0 var(--firework-color-1), -15px 0 var(--firework-color-1), 
+            0 15px var(--firework-color-2), 0 -15px var(--firework-color-2), 
+            10px 10px var(--firework-color-3), -10px 10px var(--firework-color-3), 
+            10px -10px var(--firework-color-1), -10px -10px var(--firework-color-2);
+        opacity: 0;
+        transform: scale(1.5);
+    }
 }
